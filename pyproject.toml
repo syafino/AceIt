@@ -1,0 +1,18 @@
+[build-system]
+requires = ["setuptools>=68.0"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "aceit"
+version = "0.1.0"
+description = "Interview teleprompter — bullet points near your camera so you look like you're making eye contact"
+requires-python = ">=3.10"
+
+[project.scripts]
+aceit = "aceit.main:main"
+
+[tool.ruff]
+line-length = 100
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
