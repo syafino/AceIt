@@ -6,7 +6,7 @@ from pynput import keyboard
 
 
 def _set_macos_floating(root):
-    """Use macOS native API to set window to floating panel level (above all apps)."""
+    """Use macOS native API to float above all apps and hide from screen sharing."""
     try:
         from ctypes import cdll, c_void_p, c_long
 
@@ -23,16 +23,19 @@ def _set_macos_floating(root):
         windows = objc.objc_msgSend(NSApp, objc.sel_registerName(b"windows"))
         count = objc.objc_msgSend(windows, objc.sel_registerName(b"count"))
 
-        # kCGFloatingWindowLevel = 3 (above normal windows, including Zoom)
         set_level = objc.sel_registerName(b"setLevel:")
-        objc.objc_msgSend.argtypes = [c_void_p, c_void_p, c_long]
+        set_sharing = objc.sel_registerName(b"setSharingType:")
         for i in range(count):
             objc.objc_msgSend.argtypes = [c_void_p, c_void_p, c_long]
             win = objc.objc_msgSend(
                 windows, objc.sel_registerName(b"objectAtIndex:"), c_long(i)
             )
+            # kCGFloatingWindowLevel = 3 (above normal windows, including Zoom)
             objc.objc_msgSend.argtypes = [c_void_p, c_void_p, c_long]
             objc.objc_msgSend(win, set_level, c_long(3))
+            # NSWindowSharingNone = 0 (invisible to screen capture/sharing)
+            objc.objc_msgSend.argtypes = [c_void_p, c_void_p, c_long]
+            objc.objc_msgSend(win, set_sharing, c_long(0))
     except Exception:
         pass  # Fall back to tkinter's -topmost
 
