@@ -1,6 +1,6 @@
 # AceIt
 
-A tiny teleprompter that sits right under your webcam. Feed it your bullet points, navigate with arrow keys, and nail your next interview — while looking like you're making eye contact.
+A tiny teleprompter that sits right under your webcam. Feed it your bullet points, navigate with arrow keys, and nail your next interview — while looking like you're making eye contact. The overlay is invisible to screen sharing and screenshots, so you can use it freely without anyone seeing it.
 
 ## Requirements
 
